@@ -1,10 +1,10 @@
 package javabean;
 
 public class FlightData {
-	String Name;
-	int flightId,totalSeat;
+	private String Name,flightId;
+	private int totalSeat;
 	
-	public FlightData(String name, int flightId, int totalSeat) {
+	public FlightData(String name, String flightId, int totalSeat) {
 		Name = name;
 		this.flightId = flightId;
 		this.totalSeat = totalSeat;
@@ -12,7 +12,7 @@ public class FlightData {
 	public String getName() {
 		return Name;
 	}
-	public int getFlightId() {
+	public String getFlightId() {
 		return flightId;
 	}
 	public int getTotalSeat() {
@@ -21,7 +21,7 @@ public class FlightData {
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return Name;
+		return flightId+"           "+Name+"             "+totalSeat;
 	}
 
 }

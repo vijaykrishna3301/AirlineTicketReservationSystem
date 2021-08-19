@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import javax.swing.ListModel;
 import javax.swing.event.ListDataListener;
 
-public class FarrayList<FlightData>  implements ListModel<FlightData>{
+public class ListModelFlightData<FlightData>  implements ListModel<FlightData>{
 	ArrayList<FlightData> m= new ArrayList<FlightData>(); 
 	public void add(FlightData f) {
 		m.add(f);
@@ -35,9 +35,9 @@ public class FarrayList<FlightData>  implements ListModel<FlightData>{
 		// TODO Auto-generated method stub
 		
 	}
-	public FlightData get(int ind) {
+	public FlightData get(int index) {
 		// TODO Auto-generated method stub
-		return m.get(ind);
+		return m.get(index);
 	}
 
 	

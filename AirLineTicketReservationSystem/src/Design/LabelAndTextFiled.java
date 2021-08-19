@@ -13,7 +13,7 @@ public class LabelAndTextFiled extends JPanel {
 		JLabel lbl= new JLabel(s);
 		txt = new JTextField();
 		txt.setText(s1);
-		txt.setColumns(15);
+		txt.setColumns(20);
 		add(lbl);
 		add(txt);	
 		setMaximumSize(new Dimension(500,60));
