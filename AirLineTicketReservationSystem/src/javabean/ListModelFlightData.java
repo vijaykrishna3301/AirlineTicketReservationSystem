@@ -1,12 +1,13 @@
 package javabean;
 
 import java.awt.Component;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.swing.ListModel;
 import javax.swing.event.ListDataListener;
 
-public class ListModelFlightData<FlightData>  implements ListModel<FlightData>{
+public class ListModelFlightData<FlightData>  implements ListModel<FlightData>,Serializable{
 	ArrayList<FlightData> m= new ArrayList<FlightData>(); 
 	public void add(FlightData f) {
 		m.add(f);

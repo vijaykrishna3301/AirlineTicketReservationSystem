@@ -14,10 +14,12 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListModel;
+import javax.swing.table.TableModel;
 
-import Server.MyServer;
 import javabean.ListModelFlightData;
 import javabean.FlightData;
 import sun.net.www.content.image.jpeg;
@@ -25,53 +27,69 @@ import sun.net.www.content.image.jpeg;
 
 public class TabPanel extends Panel{
 	int index=0;
-	JPanel jp = new JPanel();
-	JList flightList;
+	public JPanel jp = new JPanel();
+	JTable flightList;
+	JScrollPane center;
 	public TabPanel() {
 		setLayout(new BorderLayout());
 	}
 	public void createList() {}
-	public void buttonClickEvent() {}
+	public void southButtonClickEvent() {}
+	public void updateButtonClickEvent() {}
+	public void deleteButtonClickEvent() {}
 	public void changeIndex(int ind) {}
 	
 	public void addComponentToEastPanel(Component component) {
 		jp.add(component);
 	}
+	//set east panel
 	public void setEastPannel() {
 		jp.setLayout(new BoxLayout(jp, BoxLayout.Y_AXIS));
   		add(BorderLayout.EAST,jp);
-  		Component[] comp = jp.getComponents();
-  	    for (int i = 0;i<comp.length;i++) {
-  	        if (comp[i] instanceof JButton) {
-  	        	jp.getComponent(i).addMouseListener(new MouseAdapter() {
-  	    		    public void mouseClicked(MouseEvent evt) {
-  	    		        JButton list = (JButton)evt.getSource();
-  	    		        if (evt.getClickCount() == 2) {
-  	    		        	System.out.print(MyServer.datas.getSize());
-  	    		        	remove(flightList);
-  	    		        	createList();
-  	    		        	revalidate();
-  	    		        }  
-  	    		    }
-  	    		});
-  	        }
-  	    }
+  		int componentCount = jp.getComponentCount();
+  		JPanel jPanel = (JPanel) jp.getComponent(componentCount-1);
+  		JButton updateButton=(JButton) jPanel.getComponent(0);
+  		JButton deleteButton=(JButton) jPanel.getComponent(1);
+  	    updateButton.addMouseListener(new MouseAdapter() {
+		    public void mouseClicked(MouseEvent evt) {
+		        if (evt.getClickCount() == 1) {
+		        	System.out.println("update button ");
+		        	updateButtonClickEvent();
+		        	remove(center);
+		        	createList();
+		        	revalidate();
+		        }  
+		    }
+		});
+  	  deleteButton.addMouseListener(new MouseAdapter() {
+		    public void mouseClicked(MouseEvent evt) {
+		        if (evt.getClickCount() == 1) {
+		        	System.out.println("delete button ");
+		        	deleteButtonClickEvent();
+		        	remove(center);
+		        	createList();
+		        	jp.removeAll();
+		        	revalidate();
+		        }  
+		    }
+		});
   		revalidate();
 	}
-	public void setList(ListModel f,JLabel title) {
-		flightList= new JList(f);
-  		JPanel center = new JPanel(new BorderLayout());
+	//set list in center
+	public void setList(TableModel f) {
+		
+		flightList= new JTable(f);
+		center = new JScrollPane(flightList);
+		
   		add(BorderLayout.CENTER,center);
-  		center.add(BorderLayout.NORTH,title);
-  		center.add(BorderLayout.CENTER,flightList);
-  		title.setFont(new Font("arial",Font.PLAIN , 16));
+  		
   		flightList.setFont(new Font("arial",Font.PLAIN , 16));
   		//Flights list double click action listner
   		flightList.addMouseListener(new MouseAdapter() {
   		    public void mouseClicked(MouseEvent evt) {
-  		        JList list = (JList)evt.getSource();
+  		    	JTable list = (JTable)evt.getSource();
   		        if (evt.getClickCount() == 2) {
-  		        	int index = list.locationToIndex(evt.getPoint());
+  		        	int index = list.getSelectedRow();
   		        	System.out.print(index);
   		        	jp.removeAll();
   		        	changeIndex(index);
@@ -79,6 +97,7 @@ public class TabPanel extends Panel{
   		    }
   		});
 	}
+	//south button
 	public void setSouthButton(String btnValue){
 		//New Button
   		JButton addFlightButton = new JButton(btnValue);
@@ -88,7 +107,7 @@ public class TabPanel extends Panel{
   		addFlightButton.addMouseListener(new MouseAdapter() {
   			public void mouseClicked(MouseEvent evt) {
   		        if (evt.getClickCount() == 1) {
-  		        	buttonClickEvent();
+  		        	southButtonClickEvent();
   		        }
   		    }
 		});

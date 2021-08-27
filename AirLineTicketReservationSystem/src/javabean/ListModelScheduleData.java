@@ -1,11 +1,12 @@
 package javabean;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.swing.ListModel;
 import javax.swing.event.ListDataListener;
 
-public class ListModelScheduleData<ScheduleData> implements ListModel<ScheduleData>{
+public class ListModelScheduleData<ScheduleData> implements ListModel<ScheduleData>,Serializable{
 	ArrayList<ScheduleData> list= new ArrayList<ScheduleData>();
 	public void add(ScheduleData data) {
 		list.add(data);

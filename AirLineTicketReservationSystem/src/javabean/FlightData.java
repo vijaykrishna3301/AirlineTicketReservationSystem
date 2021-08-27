@@ -1,6 +1,8 @@
 package javabean;
 
-public class FlightData {
+import java.io.Serializable;
+
+public class FlightData implements Serializable {
 	private String Name,flightId;
 	private int totalSeat;
 	

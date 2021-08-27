@@ -1,9 +1,11 @@
 package javabean;
 
-public class AirportData {
+import java.io.Serializable;
+
+public class AirportData implements Serializable {
 	private String AirportId,name,city,country;
 
-	public AirportData(String airportId, String name, String city, String country) {
+	public AirportData(String airportId, String name, String city, String country)  {
 		super();
 		AirportId = airportId;
 		this.name = name;
